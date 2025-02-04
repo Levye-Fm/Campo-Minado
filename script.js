@@ -14,4 +14,4 @@ function calcularTempo() {
               )
 }
 
-function newgame() {}
+function newGame() {}
