@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Campo minado</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="hud">
-        escolher dificuldade: 
-        <select name="dificuldade" id="dificuldade">
-            <option value="1">fácil</option>
-            <option value="2">médio</option>
-            <option value="3">difícil</option>
-        </select>
-        <button onclick="calcularTempo()">Novo jogo</button>
-
-        Bandeiras:
-        Tempo: <span id="tempo">0:00</span>
-        Histórico:
+    <h1 id="titulo">Campo Minado</h1>
+    
+    <div class="infoJogo">Tempo: <span id="tempo">0</span> seg
+    <div class="vit">Vitórias: <span id="vitoria">0</span></div>
+    <div class="det">Derrotas: <span id="derrota">0</span></div>
     </div>
 
-    
+    <div class="terra">
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div>
+        <div class="dado"></div> 
+    </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

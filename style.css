@@ -1,0 +1,35 @@
+
+body {
+    background-color:  #096609;
+    text-align: center;
+    display: block;
+}
+
+.terra {
+    width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dado {
+    border: 2px solid #2980b9;
+    background-color:  #58585f;
+    box-sizing: border-box;
+    padding: 20px;
+    cursor: pointer;
+} 
+
+.dado:hover{
+    background-color: grey;
+}
+
+.infoJogo{
+    border: 2.5px solid #000000;
+    border-radius: 4px;
+    width: 400px;
+    margin-left: 500px;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
