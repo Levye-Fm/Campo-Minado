@@ -1,17 +1,21 @@
 function calcularTempo() {
-  var segundos = 00;
-  var minutos = 00;
-  var tempo = document.getElementById('tempo');
+    var segundos = 0;
+    var minutos = 0;
+    var tempo = document.getElementById('tempo');
+    
+    setInterval(function() {  
+      segundos++;
+      
+      if (segundos == 60) {
+        segundos = 0;
+        minutos++
+      }
+      if (segundos < 10) {
+        tempo.innerHTML = minutos+":0"+segundos;
+      } else {tempo.innerHTML = minutos+":"+segundos;}
+    }
+            ,1000    )
+                
+  }
   
-  setInterval(function() {  
-  if (segundos == 60) {
-    segundos = 00;
-    minutos++;
-  }
-    segundos++;
-    tempo.innerhtml = minutos+":"+segundos;
-  }
-              )
-}
-
-function newGame() {}
+  function newGame() {}
