@@ -1,9 +1,11 @@
+var cronometro;
 function calcularTempo() {
     var segundos = 0;
     var minutos = 0;
     var tempo = document.getElementById('tempo');
     
-    setInterval(function() {  
+    clearInterval(cronometro);
+    cronometro = setInterval(function() {  
       segundos++;
       
       if (segundos == 60) {
@@ -16,6 +18,7 @@ function calcularTempo() {
     }
             ,1000    )
                 
+            
   }
   
   function newGame() {}
