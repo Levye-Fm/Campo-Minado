@@ -19,7 +19,7 @@ body {
     border: 2px solid #2980b9;
     background-color:  #58585f;
     box-sizing: border-box;
-    padding: 20px;
+    width: 12.5%;
     cursor: pointer;
 } 
 
