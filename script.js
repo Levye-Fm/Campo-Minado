@@ -2,7 +2,7 @@
 var cronometro;
 
 function calcularTempo() {
-    //variaveis
+
     var segundos = 0;
     var minutos = 0;
     //span que representa aonde o cronometro está
@@ -29,5 +29,16 @@ function calcularTempo() {
   }
   
   function newGame() {
+    const randomNum = Math.floor(Math.random()*10);
+    var a = document.getElementById('a');
+    var campo = document.getElementById('campo');
+    a.innerHTML = randomNum;
+
+    var espacos = [];
     
+    for (let i = 0; i<56; i++) {
+        espacos[i] = document.createElement('div');
+        espacos[i].setAttribute('class', 'dado')
+        campo.appendChild(espacos[i]);
+    }
   }
