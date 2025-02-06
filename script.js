@@ -29,15 +29,18 @@ function calcularTempo() {
   }
   
 function newGame() {
-
+ 
   var campo = document.getElementById('campo');
 
   var espacos = [];
-  
-  for (let i = 0; i<56; i++) {
-      espacos[i] = document.createElement('div');
-      espacos[i].setAttribute('class', 'dado')
-      campo.appendChild(espacos[i]);
+
+  for (let i = 0; i<7; i++) {
+    espacos[i] = [];
+    for(let j = 0; j<8;j++) {
+      espacos[i][j] = document.createElement('div');
+      espacos[i][j].setAttribute('class', 'dado')
+      campo.appendChild(espacos[i][j]);
+    }
   }
 }
 
