@@ -46,9 +46,9 @@ function carregarEspacos() {
 
   var espacos = [];
 
-  for (let i = 0; i<7; i++) {
+  for (let i = 0; i<10; i++) {
     espacos[i] = [];
-    for(let j = 0; j<8;j++) {
+    for(let j = 0; j<12;j++) {
       espacos[i][j] = document.createElement('div');
       espacos[i][j].setAttribute('class', 'dado')
       campo.appendChild(espacos[i][j]);
