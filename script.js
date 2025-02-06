@@ -1,6 +1,7 @@
 // variavel cronometro tem que ser criada fora da função para evitar bug na hora de resetar o cronometro
 var cronometro;
 var espacos = [];
+var objetoEspaco = [];
 
 function calcularTempo() {
 
@@ -47,16 +48,44 @@ function carregarEspacos() {
 
 
   for (let i = 0, k = 0; i<10; i++) {
-    espacos[i] = [];
+    espacos[i] = []; //transforma vetor em matriz, tem de ser chamado a cada linha para criar uma coluna
+    objetoEspaco[i] = [];
     for(let j = 0; j<12;j++) {
       espacos[i][j] = document.createElement('div');
       espacos[i][j].setAttribute('class', 'dado');
+      espacos[i][j].setAttribute('id', 'IdEspaco'+k); // desnecessário por enquanto, se não usarmos, apagar depois.
+      objetoEspaco[i][j] = new dadosEspaco(0, 0);
       campo.appendChild(espacos[i][j]);
+      k++; //desnecessario
     }
   }
 }
 
 
+//funcao de verificar bombas, utilizado para contar bombas ao redor de um numero
+function verifybomb() {
+  for (let i = 0;i<10;i++) {
+    for(let j = 0;j<12;j++) {
+      
+      if (objetoEspaco[i][j].bomba) { //se o objeto tem bomba, ele pega uma área 3x3 e avisa todos blocos sem bomba, que tem uma bomba perto.
+
+        for(let k = i-1; k<i+2 ; k++) {
+          for(let l = j-1; l<j+2; l++) {
+            if(objetoEspaco[k][l].bomba<1) {objetoEspaco[k][l].numero++;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+class dadosEspaco {
+  constructor(bomba, numero) {
+    this.bomba = bomba;
+    this.numero = numero;
+  }
+}
 // codigo em comentario para não repetir bomba: 
 //var randomNum = Math.floor(Math.random()*10);
   //var bomba = [];
