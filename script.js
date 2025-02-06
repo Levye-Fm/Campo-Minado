@@ -29,10 +29,7 @@ function calcularTempo() {
   }
   
 function newGame() {
-  for (let i = 0; i < 10; i++) {
-    a.innerHTML += bomba[i];
-  }
- 
+
   var campo = document.getElementById('campo');
 
   var espacos = [];
