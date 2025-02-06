@@ -8,8 +8,8 @@ body {
 
 .terra {
     background-color: greenyellow;
-    height: 500px;
-    width: 500px;
+    height: 1000px;
+    width: 1000px;
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
