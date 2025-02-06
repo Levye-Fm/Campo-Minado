@@ -1,10 +1,11 @@
 // variavel cronometro tem que ser criada fora da função para evitar bug na hora de resetar o cronometro
 var cronometro;
 
+
 function calcularTempo() {
 
-    var segundos = 0;
-    var minutos = 0;
+    let segundos = 0;
+    let minutos = 0;
     //span que representa aonde o cronometro está
     var tempo = document.getElementById('tempo');
     //para o cronometro(para caso um cronometro já esteja rodando e o usuário comece outro jogo, reseta o cronometro)
@@ -27,8 +28,19 @@ function calcularTempo() {
                 
             
   }
-  
+
+//código para que a criação do jogo apenas seja executada uma vez
+let run = true;
 function newGame() {
+  
+  if (run == true) {
+    carregarEspacos();
+  }
+  run = false;
+}
+
+//codigo para criar os espacos onde estarão as bombas etc.
+function carregarEspacos() {
  
   var campo = document.getElementById('campo');
 
