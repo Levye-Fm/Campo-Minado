@@ -28,17 +28,30 @@ function calcularTempo() {
             
   }
   
-  function newGame() {
-    const randomNum = Math.floor(Math.random()*10);
-    var a = document.getElementById('a');
-    var campo = document.getElementById('campo');
-    a.innerHTML = randomNum;
-
-    var espacos = [];
-    
-    for (let i = 0; i<56; i++) {
-        espacos[i] = document.createElement('div');
-        espacos[i].setAttribute('class', 'dado')
-        campo.appendChild(espacos[i]);
-    }
+function newGame() {
+  for (let i = 0; i < 10; i++) {
+    a.innerHTML += bomba[i];
   }
+ 
+  var campo = document.getElementById('campo');
+
+  var espacos = [];
+  
+  for (let i = 0; i<56; i++) {
+      espacos[i] = document.createElement('div');
+      espacos[i].setAttribute('class', 'dado')
+      campo.appendChild(espacos[i]);
+  }
+}
+
+// codigo em comentario para não repetir bomba: 
+//var randomNum = Math.floor(Math.random()*10);
+  //var bomba = [];
+  //while (bomba.length < 10) {
+    //randomNum = Math.floor(Math.random()*10);
+    //if (!bomba.includes(randomNum)) {
+      //bomba.push(randomNum);
+    //}
+  //}
+
+//usar quando criar função de distribuir bombas 
