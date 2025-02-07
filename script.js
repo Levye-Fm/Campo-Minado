@@ -71,7 +71,7 @@ function verifybomb() {
 
         for(let k = i-1; k<i+2 ; k++) {
           for(let l = j-1; l<j+2; l++) {
-            if(objetoEspaco[k][l].bomba<1) {objetoEspaco[k][l].numero++;
+            if(objetoEspaco[k][l].bomba<1) {objetoEspaco[k][l].numero++; //aumenta numero apenas se nao tiver bomba no espaço
             }
           }
         }
@@ -82,8 +82,8 @@ function verifybomb() {
 }
 class dadosEspaco {
   constructor(bomba, numero) {
-    this.bomba = bomba;
-    this.numero = numero;
+    this.bomba = bomba; //bomba no espaço
+    this.numero = numero; //numero de bombas ao redor do espaço
   }
 }
 // codigo em comentario para não repetir bomba: 
