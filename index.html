@@ -1,25 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campo minado</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Campo Minado</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <h1>Campo Minado</h1>
     
-    <div class="infoJogo">Tempo: <span id="tempo">0:00</span>
-    <div class="vit">Vitórias: <span id="vitoria">0</span></div>
-    <div class="det">Derrotas: <span id="derrota">0</span></div>
-    <div>bandeiras: </div>
-    <button onclick="calcularTempo(), newGame()">Novo jogo</button>
+    <div class="infoJogo">
+        <div>Tempo: <span id="tempo">0:00</span></div>
+        <div>Vitórias: <span id="vitoria">0</span></div>
+        <div>Derrotas: <span id="derrota">0</span></div>
+        <div>Bandeiras: <span id="bandeiras">10</span></div>
+        <button onclick="newGame()">Novo Jogo</button>
     </div>
 
-    <div class="terra" id="campo">
+    <div class="dificuldade">
+        <h3>Dificuldade:</h3>
+        <button onclick="setDificuldade('facil')">Fácil</button>
+        <button onclick="setDificuldade('medio')">Médio</button>
+        <button onclick="setDificuldade('dificil')">Difícil</button>
     </div>
 
-    <script src="script.js"></script>
+    <div class="terra" id="campo"></div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
