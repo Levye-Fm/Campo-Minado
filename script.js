@@ -24,7 +24,6 @@ function calcularTempo() {
 
 function newGame() {
     jogoAtivo = true;
-    bombasRestantes = 10;
     document.getElementById('bandeiras').textContent = bombasRestantes;
     document.getElementById('campo').innerHTML = '';
     espacos = [];
@@ -108,7 +107,7 @@ function revelarCelula(i, j) {
         setTimeout(() => {
             alert('Você perdeu!');
             document.getElementById('derrota').textContent = parseInt(document.getElementById('derrota').textContent) + 1;
-            newGame(); // Reinicia após o OK do alerta
+            setDificuldade(dificuldade); // Reinicia após o OK do alerta
         }, 100); // Pequeno atraso para garantir renderização
     } else {
         celula.textContent = espaco.numero || '';
@@ -117,7 +116,6 @@ function revelarCelula(i, j) {
 }
 
 function marcarBandeira(i, j) {
-    if (!jogoAtivo) return;
 
     const celula = espacos[i][j];
 
@@ -143,6 +141,7 @@ function setDificuldade(nivel) {
     } else if (nivel === 'dificil') {
         bombasRestantes = 30;
     }
+
     newGame();
 }
 
@@ -151,4 +150,4 @@ class dadosEspaco {
         this.bomba = bomba;
         this.numero = numero;
     }
-  }
+}
