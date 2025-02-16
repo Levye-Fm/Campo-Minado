@@ -4,6 +4,7 @@ var objetoEspaco = [];
 var bombasRestantes = 10;
 var jogoAtivo = false;
 var dificuldade = 'facil';
+var primeiroClique = true;
 
 function calcularTempo() {
     let segundos = 0;
@@ -23,6 +24,7 @@ function calcularTempo() {
 }
 
 function newGame() {
+    primeiroClique = true;
     jogoAtivo = true;
     document.getElementById('bandeiras').textContent = bombasRestantes;
     document.getElementById('campo').innerHTML = '';
@@ -30,7 +32,7 @@ function newGame() {
     objetoEspaco = [];
     carregarEspacos();
     colocarBombas();
-    verifybomb();
+    verificarBombas();
     calcularTempo();
 }
 
@@ -68,7 +70,9 @@ function colocarBombas() {
     }
 }
 
-function verifybomb() {
+function verificarBombas() {
+    reNumeros();
+
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 12; j++) {
             if (objetoEspaco[i][j].bomba) {
@@ -84,11 +88,58 @@ function verifybomb() {
     }
 }
 
-function revelarCelula(i, j) {
-    if (!jogoAtivo) return;
+function reNumeros() {
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 12; j++) {
+            objetoEspaco[i][j].numero = 0;
+        }
+    }
+}
 
-    const celula = espacos[i][j];
-    const espaco = objetoEspaco[i][j];
+function moverBomba(i, j) {
+    //Tira a bomba do quadrante
+    objetoEspaco[i][j].bomba = 0;
+
+    //Gera outra bomba num quadrante aleatório
+    let bombaRecolocada = false;
+    while (!bombaRecolocada) {
+        //Quadrante aleatório
+        const x = Math.floor(Math.random() * 10);
+        const y = Math.floor(Math.random() * 12);
+
+        //Bomba recolocada apenas se longe o suficiente
+        const distanciaX = Math.abs(x - i);
+        const distanciaY = Math.abs(y - j);
+        if (!objetoEspaco[x][y].bomba && distanciaX > 1 && distanciaY > 1) {
+            objetoEspaco[x][y].bomba = 1;
+            bombaRecolocada = true;
+        }
+    }
+
+    verificarBombas();
+}
+
+function revelarCelula(i, j) {
+    let celula = espacos[i][j];
+    let espaco = objetoEspaco[i][j];
+
+    if (primeiroClique) {
+        primeiroClique = false;
+
+        //Se o primeiro clique for em uma bomba, move pra outro quadrante
+        if(espaco.bomba) {
+            moverBomba(i, j);
+        }
+
+        if(comBombasAdj) {
+            moverBombasAdj(i, j);
+        }
+
+        verificarBombas();
+
+        //Revela área por volta do primeiro clique
+        revelarArea(i, j);
+    }
 
     if (espaco.bomba) {
         // Revela todas as bombas
@@ -115,11 +166,63 @@ function revelarCelula(i, j) {
     }
 }
 
+function comBombasAdj(i, j) {
+    for (let x = i - 1; x <= i + 1; x++) {
+        for (let y = j - 1; y <= j + 1; y++) {
+            if (x >= 0 && x < 10 && y >= 0 && y < 12 && objetoEspaco[x][y].bomba) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function moverBombasAdj(i, j) {
+    for (let x = i - 1; x <= i + 1; x++) {
+        for (let y = j - 1; y <= j + 1; y++) {
+            if (x >= 0 && x < 10 && y >= 0 && y < 12 && objetoEspaco[x][y].bomba) {
+                moverBomba(x, y);
+            }
+        }
+    }
+    verificarBombas();
+}
+
+function revelarArea(i, j) {
+    let celula = espacos[i][j];
+    let espaco = objetoEspaco[i][j];
+
+    //Se revelada, com bandeira, ou com bomba, quadrante impossibilitado de ser revelado
+    if (celula.style.backgroundColor === '#4a6a8a' || celula.textContent == '🚩' || espaco.bomba) {
+        return;
+    }
+
+    celula.textContent = espaco.numero || '';
+    celula.style.backgroundColor = '#4a6a8a';
+
+    if (espaco.numero == 0) {
+        for (let x = i - 1; x <= i + 1; x++) {
+            for (let y = j - 1; y <= j + 1; y++) {
+                if (x >= 0 && x < 10 && y >= 0 && y < 12) {
+                    revelarArea(x, y);
+                }
+            }
+        }
+    }
+}
+
+
 function marcarBandeira(i, j) {
 
     const celula = espacos[i][j];
 
-    if (celula.textContent === '🚩') {
+    if(document.getElementById('bandeiras').textContent == "0") {
+        return;
+    }
+    if(celula.style.backgroundColor == '#4a6a8a') {
+        return;
+    }
+    if (celula.textContent == '🚩') {
         // Se já tem uma bandeira, remove
         celula.textContent = '';
         bombasRestantes++;
@@ -134,12 +237,12 @@ function marcarBandeira(i, j) {
 
 function setDificuldade(nivel) {
     dificuldade = nivel;
-    if (nivel === 'facil') {
+    if (nivel == 'facil') {
         bombasRestantes = 10;
-    } else if (nivel === 'medio') {
-        bombasRestantes = 20;
-    } else if (nivel === 'dificil') {
+    } else if (nivel == 'medio') {
         bombasRestantes = 30;
+    } else if (nivel == 'dificil') {
+        bombasRestantes = 40;
     }
 
     newGame();
