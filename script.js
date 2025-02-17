@@ -122,7 +122,12 @@ function moverBomba(i, j) {
 function revelarCelula(i, j) {
     let celula = espacos[i][j];
     let espaco = objetoEspaco[i][j];
-
+    if(celula.textContent == '🚩') {
+        return;
+    }
+    if(celula.textContent == 0) {
+        revelarArea(i, j);
+    }
     if (primeiroClique) {
         primeiroClique = false;
 
@@ -228,10 +233,6 @@ function revelarArea(i, j) {
 function marcarBandeira(i, j) {
 
     const celula = espacos[i][j];
-
-    if(document.getElementById('bandeiras').textContent == "0") {
-        return;
-    }
     if(celula.style.backgroundColor == '#4a6a8a') {
         return;
     }
@@ -240,10 +241,15 @@ function marcarBandeira(i, j) {
         celula.textContent = '';
         bombasRestantes++;
     } else if (!celula.textContent) {
+        if(document.getElementById('bandeiras').textContent == "0") {
+            return;
+        }
         // Se não tem nada, coloca a bandeira
         celula.textContent = '🚩';
         bombasRestantes--;
     }
+   
+    
 
     document.getElementById('bandeiras').textContent = bombasRestantes;
 }
