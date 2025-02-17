@@ -142,11 +142,11 @@ function revelarCelula(i, j) {
     }
 
     if (espaco.bomba) {
-        // Revela todas as bombas
+        //Revela todas as bombas
         for (let x = 0; x < 10; x++) {
             for (let y = 0; y < 12; y++) {
                 if (objetoEspaco[x][y].bomba) {
-                    espacos[x][y].textContent = 'BOMBA'; // Texto ou emoji
+                    espacos[x][y].textContent = '💥'; //Texto ou emoji
                     espacos[x][y].style.backgroundColor = '#ff0000';
                 }
             }
@@ -154,12 +154,12 @@ function revelarCelula(i, j) {
 
         jogoAtivo = false;
 
-        // Atraso para exibir as bombas antes do alerta
+        //Atraso para exibir as bombas antes do alerta
         setTimeout(() => {
             alert('Você perdeu!');
             document.getElementById('derrota').textContent = parseInt(document.getElementById('derrota').textContent) + 1;
-            setDificuldade(dificuldade); // Reinicia após o OK do alerta
-        }, 100); // Pequeno atraso para garantir renderização
+            setDificuldade(dificuldade); //Reinicia após o OK do alerta
+        }, 100); //Pequeno atraso para garantir renderização
     } else {
         celula.textContent = espaco.numero || '';
         celula.style.backgroundColor = '#4a6a8a';
@@ -192,24 +192,37 @@ function revelarArea(i, j) {
     let celula = espacos[i][j];
     let espaco = objetoEspaco[i][j];
 
-    //Se revelada, com bandeira, ou com bomba, quadrante impossibilitado de ser revelado
+    //Se revelado, com bandeira, ou com bomba, quadrante impossibilitado de ser revelado
     if (celula.style.backgroundColor === '#4a6a8a' || celula.textContent == '🚩' || espaco.bomba) {
         return;
     }
 
     celula.textContent = espaco.numero || '';
     celula.style.backgroundColor = '#4a6a8a';
-
+    
+    //Lista coordenadas adjacentes
     if (espaco.numero == 0) {
-        for (let x = i - 1; x <= i + 1; x++) {
-            for (let y = j - 1; y <= j + 1; y++) {
-                if (x >= 0 && x < 10 && y >= 0 && y < 12) {
-                    revelarArea(x, y);
-                }
-            }
+        let adj = [ { x: i - 1, y: j - 1 }, { x: i - 1, y: j }, { x: i - 1, y: j + 1 },
+            { x: i, y: j - 1 }, { x: i, y: j + 1 }, { x: i + 1, y: j - 1 }, { x: i + 1, y: j }, { x: i + 1, y: j + 1 } ];
+
+        //Filtra coordenadas válidas
+        let validas = adj.filter(coord => coord.x >= 0 && coord.x < 10 && coord.y >= 0 && coord.y < 12);
+           
+        //Revela espaço adjacente aleatoriamente
+        while(validas.length > 0) {
+            //Escolhe um quadrante aleatório da lista
+            let index = Math.floor(Math.random() * validas.length);
+            let coord = validas[index];
+
+            //Remove o quadrante escolhido da lista
+            validas.splice(index, 1);
+
+            //Revela o quadrante
+            revelarArea(coord.x, coord.y);
         }
     }
 }
+
 
 
 function marcarBandeira(i, j) {
@@ -246,6 +259,10 @@ function setDificuldade(nivel) {
     }
 
     newGame();
+}
+
+function vitoria() {
+    
 }
 
 class dadosEspaco {
